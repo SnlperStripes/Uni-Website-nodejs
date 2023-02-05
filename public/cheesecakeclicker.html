@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="de">
+
+
+<link rel="icon" type="image/png" href="img/favicon.png"/>
+
+
+<title>
+    Cheesecake Game
+</title>
+
+
+<head>
+    <link rel="stylesheet" href="./style.css">
+
+    <script>
+       /*  if ((localStorage.getItem("cheesecakes")) < 10) {
+            localStorage.cheesecakes = 10;
+        } else if ((localStorage.getItem("cheesecakes")) > 10) {
+            var money = localStorage.cheesecakes;
+        } else {
+            var money = 0;
+        } */
+        let upgradePrice = 10;
+        let upgradePricePassive = 10;
+        var money = 0
+        var earning = 0;
+        var passive_earning = 0;
+
+
+        function earn_click() {
+            money = money + earning
+            document.getElementById('bank').innerHTML = money;
+            document.getElementById('MainCheesecake').classList.add("animation")
+            setTimeout(function() {
+                document.getElementById('MainCheesecake').classList.remove("animation")
+            }, 996);
+            /* localStorage.setItem("cheesecakes") */
+        }
+
+        function upgrade() {
+            earning++
+            document.getElementById('current_earnings').innerHTML = earning;
+            document.getElementById('bank').innerHTML = money;
+        }
+
+        function upgrade_passive_earning() {
+            passive_earning += 1
+            document.getElementById('passive_earnings').innerHTML = passive_earning;
+            document.getElementById('bank').innerHTML = money;
+        }
+
+        function game_on() {
+            money = money + passive_earning;
+            document.getElementById('bank').innerHTML = money;
+        }
+
+        function dropdown_Button() {
+         document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        setInterval(game_on, 1000);
+        setInterval(save_data, 10000);
+
+
+        window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+            }
+        }
+        /* code for the help button */
+        if (!event.target.matches('.help_button')) {
+            var dropdowns = document.getElementsByClassName("help-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+            }
+        }
+        }
+
+        function help_Button() {
+            document.getElementById("HelpInfos").classList.toggle("show");
+        }
+
+        /* Load saved data - Cheesecakes and upgrading costs */
+        function load_cheesecakes() {
+            const data = JSON.parse(localStorage.getItem("cheesecakes"));
+            if (data) {
+                money = data.cheesecakes;
+                document.getElementById('bank').innerHTML = money;
+            }
+            const earnings = JSON.parse(localStorage.getItem("earnings"));
+            if (earnings) {
+                earning = earnings.earnings;
+                document.getElementById('current_earnings').innerHTML = earning;
+            }
+            const passive_earnings = JSON.parse(localStorage.getItem("passive_earnings"));
+            if (passive_earnings) {
+                passive_earning = passive_earnings.passive_earnings;
+                document.getElementById('passive_earnings').innerHTML = passive_earning;
+            }
+        }
+
+        function load_upgrade_costs() {
+            const data = JSON.parse(localStorage.getItem("upgrade_cost_click"));
+            if (data) {
+                upgradePrice = data.upgrade_cost_click;
+                document.getElementById('upgrade-price').innerHTML = upgradePrice;
+            }
+            const data2 = JSON.parse(localStorage.getItem("upgrade_cost_passive"));
+            if (data2) {
+                upgradePricePassive = data2.upgrade_cost_passive;
+                document.getElementById('upgrade-price-passive').innerHTML = upgradePricePassive;
+            }
+        }
+
+        function buyUpgrade() {
+        // Decrease the user's cheesecake count by the current upgrade price
+        if (money >= upgradePrice) {
+            money -= upgradePrice;
+            upgradePrice *= 4;
+            upgrade();
+            save_data();
+        } else {
+            alert("You don't have enough cheesecakes to buy this upgrade!");
+                    // Update the displayed cheesecake count
+        }
+        document.getElementById('upgrade-price').innerHTML = upgradePrice; }
+        document.getElementById('bank').innerHTML = money;
+
+
+
+        function buyUpgradePassive() {
+        // Decrease the user's cheesecake count by the current upgrade price
+        if (money >= upgradePricePassive) {
+            money -= upgradePricePassive;
+            upgradePricePassive *= 10;
+            upgrade_passive_earning();
+            save_data();
+        } else {
+            alert("You don't have enough cheesecakes to buy this upgrade!");
+        }
+            // Update the displayed cheesecake count
+            document.getElementById('upgrade-price-passive').innerHTML = upgradePricePassive; }
+            document.getElementById('bank').innerHTML = money;
+
+
+
+        function save_data() {
+            const cheesecakes = { cheesecakes: money }
+            localStorage.setItem("cheesecakes", JSON.stringify(cheesecakes));
+            const upgrade_cost_click = { upgrade_cost_click: upgradePrice }
+            localStorage.setItem("upgrade_cost_click", JSON.stringify(upgrade_cost_click));
+            const upgrade_cost_passive = { upgrade_cost_passive: upgradePricePassive }
+            localStorage.setItem("upgrade_cost_passive", JSON.stringify(upgrade_cost_passive));
+            const save_earnings = { earnings: earning }
+            localStorage.setItem("earnings", JSON.stringify(save_earnings));
+            const save_passive_earnings = { passive_earnings: passive_earning }
+            localStorage.setItem("passive_earnings", JSON.stringify(save_passive_earnings));
+        }
+
+
+        function reset_game() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        </script>
+
+
+<div>
+    <button onclick="save_cheesecakes()">Save Game</button>
+    <button onclick="save_data()">Save Upgrades</button>
+    <button onclick="reset_game()">Reset Game</button>
+</div>
+
+<!--         <img src="img/Cheesecake header.png"
+        /> -->
+        <!-- <button onclick="save_cheesecakes">Save Game</button> -->
+    <div
+    <h1 class="head-txt"> Fabs Cheesecake Game </h1>
+    <p class="head-txt"> You can earn money by clicking the box </p> 
+</div>
+
+<div class="dropdown">
+    <button onclick="dropdown_Button()" class="dropbtn">Upgrade Earnings</button>
+    <div id="myDropdown" class="dropdown-content">
+        <button onclick="buyUpgrade()">Upgrade Clicker (cost: <span id="upgrade-price">10</span> cheesecakes)</button>
+        <button onclick="buyUpgradePassive()">Upgrade Passive Income (cost: <span id="upgrade-price-passive">10</span> cheesecakes)</button>
+    </div>
+  </div>
+
+<div class="Help">
+    <button onclick="help_Button()" class="help_button">Help</button>
+    <div id="HelpInfos" class="help-content">
+        <p>Click the Cheesecake to earn more Cheesecakes</p>
+    </div>
+</div>
+
+</head>
+<!-- <img src="img/Logo.png"
+height="200px"
+/> -->
+
+<div class="body-except-upgrades">
+<body onload="upgrade_passive_earning(), upgrade(), game_on(), load_cheesecakes(), load_upgrade_costs()">
+Cheesecakes:
+<div
+id="bank">
+</div>
+
+<div class="statistics">
+Cheesecakes per Click:
+<div id="current_earnings"></div>
+
+Cheesecake per second:
+<div id="passive_earnings" ></div>
+</div>
+
+    <img src="img/clickable-cheesecake.png" id="MainCheesecake"
+    class="clickable-pic"
+    height="333"
+    width="333"
+    onclick="earn_click()"
+    alt="picture a of a cheesecake"
+    role="button">
+
+</div>
+
+
+<!--     <p>Upgrade </p>
+    <p>
+        <img src="img/grandmother.png"
+        class="clickable-pic"
+        height="211"
+        width="211"
+        onclick="upgrade()"
+        alt="Picture of a Baking Grandmother"
+        role="button"
+        >
+        <img src="img/factory_one.png"
+        class="upgrades"
+        height="211"
+        width="211"
+        onclick="upgrade_passive_earning()"
+        alt="Picture of a Factory"
+        role="button">
+    </p>
+    <p>
+        <img src="img/bakery.png"
+        class="clickable-pic"
+        height="211"
+        width="211"
+        onclick="upgrade()"
+        alt="Picture of a Baking Grandmother"
+        role="button">
+    </p> -->
+
+</body>
+
+    <footer>
+        <p id="creator"> Coded by Fabio Gruosso</p>
+    </footer>
+
+
+
+</html>

@@ -1,0 +1,149 @@
+/* @font-face {
+    font-family: SassyFrass-Regular;
+    src: url(SassyFrass-Regular.ttf);
+} */
+
+.head-txt/* , .dropdown */ {
+    color: rgb(204, 240, 47);
+    font-family: SassyFrass-Regular;
+    font-variant: small-caps;
+    text-transform: uppercase;
+    /* font-size: 31px; */
+    text-align: center;
+    background-color: rgb(75, 31, 117);
+    padding: 5px 5px;
+    max-height: 66px;
+    background-image: url("img/Logo.png");
+    /* width: 100%; */
+}
+
+.button_green {
+    border-radius: 24px;
+    background-color: rgb(201, 247, 190);
+    font-size: larger;
+}
+
+body {
+    background-color: rgb(196, 138, 135);
+    font-size: larger;
+    /* border: 5px solid gray; */
+}
+
+.body-except-upgrades {
+    padding: 33px 33px;
+    font-size: larger;
+    text-align: center;
+}
+
+.clickable-pic,
+.upgrades {
+    cursor: pointer;
+}
+
+.upgrades {
+    float: right;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #2596be;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.help_button {
+    background-color: #2596be;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus .help_button:hover .help_button:focus {
+    background-color: #2980b9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown,
+.Help {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.help-content {
+    right: 0;
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a,
+.help_content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover,
+.help_content a {
+    background-color: rgb(255, 255, 255);
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+    display: block;
+}
+
+.Help {
+    float: right;
+}
+
+#creator {
+    float: right;
+    color: rgb(255, 255, 255);
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 99%;
+}
+
+.animation {
+    animation: draw 1s linear infinite;
+}
+
+@keyframes draw {
+    0% {
+        scale: 1;
+    }
+    50% {
+        scale: 0.5;
+    }
+    100% {
+        scale: 1;
+    }
+}
