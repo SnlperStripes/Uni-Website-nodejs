@@ -4,7 +4,8 @@
 } */
 
 .head-txt/* , .dropdown */ {
-    color: rgb(204, 240, 47);
+    color: rgb(13, 8, 61);
+    /* color: rgb(204, 240, 47); */
     font-family: SassyFrass-Regular;
     font-variant: small-caps;
     text-transform: uppercase;
@@ -56,7 +57,7 @@ body {
 
 .help_button {
     background-color: #2596be;
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 16px;
     font-size: 16px;
     border: none;
@@ -65,7 +66,9 @@ body {
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover,
-.dropbtn:focus .help_button:hover .help_button:focus {
+.dropbtn:focus,
+.help_button:hover,
+.help_button:focus {
     background-color: #2980b9;
 }
 
@@ -90,7 +93,7 @@ body {
     right: 0;
     display: none;
     position: absolute;
-    background-color: #ffffff;
+    background-color: #b84c4c;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -111,7 +114,7 @@ body {
     background-color: rgb(255, 255, 255);
 }
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+/* Show the dropdown menu */
 .show {
     display: block;
 }

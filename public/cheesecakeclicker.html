@@ -26,7 +26,7 @@
         var money = 0
         var earning = 0;
         var passive_earning = 0;
-
+        let achievement_counter = 10;
 
         function earn_click() {
             money = money + earning
@@ -61,6 +61,7 @@
 
         setInterval(game_on, 1000);
         setInterval(save_data, 10000);
+        setInterval(achievements, 4000)
 
 
         window.onclick = function(event) {
@@ -123,6 +124,13 @@
             }
         }
 
+        function load_achievements() {
+            const data = JSON.parse(localStorage.getItem("achievements"));
+            if (data) {
+                achievement_counter = data.achievements;
+            }
+        }
+
         function buyUpgrade() {
         // Decrease the user's cheesecake count by the current upgrade price
         if (money >= upgradePrice) {
@@ -135,7 +143,6 @@
                     // Update the displayed cheesecake count
         }
         document.getElementById('upgrade-price').innerHTML = upgradePrice; }
-        document.getElementById('bank').innerHTML = money;
 
 
 
@@ -151,7 +158,6 @@
         }
             // Update the displayed cheesecake count
             document.getElementById('upgrade-price-passive').innerHTML = upgradePricePassive; }
-            document.getElementById('bank').innerHTML = money;
 
 
 
@@ -168,6 +174,13 @@
             localStorage.setItem("passive_earnings", JSON.stringify(save_passive_earnings));
         }
 
+        function achievements() {
+            if ((money / achievement_counter) > 1) {
+                window.alert("Congratulations! First " + achievement_counter + " Cheesecakes earned!");
+                achievement_counter *= 10;
+                localStorage.setItem("achievements", JSON.stringify(achievement_counter));
+            }
+        }
 
         function reset_game() {
             localStorage.clear();
@@ -212,7 +225,7 @@ height="200px"
 /> -->
 
 <div class="body-except-upgrades">
-<body onload="upgrade_passive_earning(), upgrade(), game_on(), load_cheesecakes(), load_upgrade_costs()">
+<body onload="upgrade_passive_earning(), upgrade(), game_on(), load_cheesecakes(), load_upgrade_costs(), load_achievements()">
 Cheesecakes:
 <div
 id="bank">
@@ -268,7 +281,7 @@ Cheesecake per second:
 </body>
 
     <footer>
-        <p id="creator"> Coded by Fabio Gruosso</p>
+        <p id="creator"> Coded by Fabio Gruosso - HDBW</p>
     </footer>
 
 
